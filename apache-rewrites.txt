@@ -1,0 +1,47 @@
+
+#
+# Custom rewrites
+# Note that these aren't implemented into MyBB, and require a lot of work to use them.
+# If you aren't up to do a lot of theme customization or
+# modifying MyBB itself (the former is recommended more than the latter), then don't
+# bother using these rewrites, they will only cause headache.
+#
+
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+
+	RewriteRule ^(index|usercp|online|search|private|portal)(\/)?$ $1.php [L,QSA]
+	RewriteRule ^(usercp|private|search|online)\/([a-z\-]+)(\/)?$ $1.php?action=$2 [L,QSA]
+	RewriteRule ^(usercp|private|search|online)\/([a-z\-]+)(\/)?\?(.*)$ $1.php?action=$2&$4 [L,QSA]
+
+	RewriteRule ^forum\/([0-9]+)(\/)?$ forumdisplay.php?fid=$1 [L,QSA]
+	RewriteRule ^forum\/([0-9]+)(\/)?\?(.*)$ forumdisplay.php?fid=$1&$3 [L,QSA]
+
+	RewriteRule ^thread\/([0-9]+)(\/)?$ showthread.php?tid=$1 [L,QSA]
+	RewriteRule ^thread\/([0-9]+)\/([0-9]+)(\/)?$ showthread.php?tid=$1&page=$2 [L,QSA]
+	RewriteRule ^thread\/([0-9]+)(\/)?\?(.*)$ showthread.php?tid=$1&$3 [L,QSA]
+	RewriteRule ^thread\/([0-9]+)\/([0-9]+)(\/)?\?(.*)$ showthread.php?tid=$1&page=$2&$3 [L,QSA]
+
+	RewriteRule ^post\/([0-9]+)(\/)?$ showthread.php?pid=$1 [L,QSA]
+
+	RewriteRule ^announcement\/([0-9]+)(\/)?$ announcements.php?aid=$1 [L,QSA]
+
+	RewriteRule ^members(\/)?$ memberlist.php [L,QSA]
+	RewriteRule ^members\/([0-9]+)(\/)?$ memberlist.php?page=$1 [L,QSA]
+	RewriteRule ^members(\/)?\?(.*)$ memberlist.php?$2 [L,QSA]
+
+	RewriteRule ^member\/([0-9]+)$ member.php?action=profile&uid=$1 [L,QSA]
+
+	RewriteRule ^(login|register)(\/)?$ member.php?action=$1 [L,QSA]
+	RewriteRule ^logout\/([a-f0-9]+)(\/)?$ member.php?action=logout&logoutkey=$1 [L,QSA]
+
+	RewriteRule ^search\/([a-f0-9]+)(\/)?$ search.php?action=results&sid=$1 [L,QSA]
+	RewriteRule ^search\/([a-f0-9]+)(\/)?\?(.*)$ search.php?action=results&sid=$1&$3 [L,QSA]
+	RewriteRule ^search\/([a-f0-9]+)\/([0-9]+)(\/)?$ search.php?action=results&sid=$1&page=$2 [L,QSA]
+	RewriteRule ^search\/([a-f0-9]+)\/([0-9]+)(\/)?\?(.*)$ search.php?action=results&sid=$1&page=$2&$4 [L,QSA]
+
+	RewriteRule ^docs(\/)?$ misc.php?action=help [L,QSA]
+	RewriteRule ^doc\/([0-9]+)(\/)?$ misc.php?action=help&hid=$1 [L,QSA]
+
+</IfModule>
+
